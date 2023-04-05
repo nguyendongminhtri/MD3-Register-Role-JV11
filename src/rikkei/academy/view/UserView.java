@@ -2,6 +2,7 @@ package rikkei.academy.view;
 
 import rikkei.academy.config.Config;
 import rikkei.academy.controller.UserController;
+import rikkei.academy.dto.request.SignInDTO;
 import rikkei.academy.dto.request.SignUpDTO;
 import rikkei.academy.dto.response.ResponseMessage;
 import rikkei.academy.model.User;
@@ -26,20 +27,8 @@ public class UserView {
         String name = Config.scanner().nextLine();
         System.out.println("Enter the username: ");
         String username = Config.scanner().nextLine();
-
         System.out.println("Enter the email: ");
         String email = Config.scanner().nextLine();
-//        while (true){
-//            SignUpDTO sign = new SignUpDTO();
-//            sign.setUsername(email);
-//            if(userController.register(sign).getMessage().equals("email_existed")){
-//                System.err.println("username is existed! Please try again!");
-//                email = Config.scanner().nextLine();
-//            } else {
-//                break;
-//            }
-//        }
-
         System.out.println("Enter the password: ");
         String password = Config.scanner().nextLine();
         System.out.println("Enter the role: ");
@@ -63,15 +52,29 @@ public class UserView {
               break;
           }
         }
-
-
     }
     public  void formLogin(){
-        System.out.println("Hàm Login!");
-        System.out.println("Enter back to return Navbar: ");
-        String back = Config.scanner().nextLine();
-        if(back.equalsIgnoreCase("back")){
-            new Navbar();
+        System.out.println("Form Login!");
+        System.out.println("Enter your username: ");
+        String username = Config.scanner().nextLine();
+        System.out.println("Enter your password: ");
+        String password = Config.scanner().nextLine();
+        SignInDTO signInDTO = new SignInDTO(username,password);
+        while (true) {
+            ResponseMessage responseMessage = userController.login(signInDTO);
+            if(responseMessage.getMessage().equals("login_failed")){
+                System.err.println("Login failed! Please check your account!");
+                System.out.println("Enter your username: ");
+                username = Config.scanner().nextLine();
+                System.out.println("Enter your password: ");
+                password = Config.scanner().nextLine();
+                signInDTO.setUsername(username);
+                signInDTO.setPassword(password);
+            } else {
+                System.out.println("LOGIN SUCCESS!");
+                new Navbar();
+                break;
+            }
         }
     }
     public void showListUser(){

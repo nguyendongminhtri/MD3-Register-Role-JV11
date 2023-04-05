@@ -1,5 +1,6 @@
 package rikkei.academy.controller;
 
+import rikkei.academy.dto.request.SignInDTO;
 import rikkei.academy.dto.request.SignUpDTO;
 import rikkei.academy.dto.response.ResponseMessage;
 import rikkei.academy.model.Role;
@@ -44,5 +45,15 @@ public class UserController {
     }
     public List<User> getListUser(){
         return userService.findAll();
+    }
+    public ResponseMessage login(SignInDTO signInDTO){
+        if(userService.checkLogin(signInDTO.getUsername(), signInDTO.getPassword())){
+            return new ResponseMessage("login_success");
+        } else {
+            return new ResponseMessage("login_failed");
+        }
+    }
+    public User getUserLogin(){
+        return userService.getCurentUser();
     }
 }

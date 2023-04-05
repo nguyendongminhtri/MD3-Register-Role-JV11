@@ -12,6 +12,7 @@ public class Config<T> {
     }
     public static final String PATH_CATEGORY = "src/rikkei/academy/database/category.txt";
     public static final String PATH_USER = "src/rikkei/academy/database/user.txt";
+    public static final String PATH_USER_LOGIN = "D:\\JV11\\Project\\MD3-Register-Role-JV11\\src\\rikkei\\academy\\database\\user_principal.txt";
     //Phương thức đọc file
     public  List<T> readFromFile(String pathFile)  {
         List<T> tList = new ArrayList<>();
