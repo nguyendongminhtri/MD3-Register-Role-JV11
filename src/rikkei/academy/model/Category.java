@@ -5,13 +5,21 @@ import java.io.Serializable;
 public class Category implements Serializable {
     private int id;
     private String name;
-
+    private User user;
     public Category() {
     }
 
     public Category(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public int getId() {

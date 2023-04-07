@@ -12,6 +12,13 @@ import java.util.List;
 import java.util.Set;
 
 public class UserView {
+    public static UserView userViewInstance;
+    public static UserView getUserViewInstance(){
+        if(userViewInstance==null){
+            userViewInstance = new UserView();
+        }
+        return userViewInstance;
+    }
     UserController userController = new UserController();
     List<User> userList = userController.getListUser();
     public void formRegister() {

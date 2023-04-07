@@ -2,26 +2,43 @@ package rikkei.academy.view;
 
 import rikkei.academy.config.Config;
 import rikkei.academy.controller.CategoryController;
+import rikkei.academy.controller.UserController;
 import rikkei.academy.model.Category;
+import rikkei.academy.model.User;
 
 import java.util.List;
 
 public class CategoryView {
+    public static CategoryView categoryViewInstance;
+    private UserController userController = new UserController();
+    public static CategoryView getCategoryViewInstance(){
+        if(categoryViewInstance==null){
+            categoryViewInstance = new CategoryView();
+        }
+        return categoryViewInstance;
+    }
     public CategoryView() {
+        User userLogin = userController.getUserLogin();
         System.out.println("******************* CATEGORY MANAGE *******************");
         System.out.println("1. Show List Category");
-        System.out.println("2. Create Category");
-        System.out.println("3. Update Category");
+        if(userLogin!=null){
+            System.out.println("2. Create Category");
+            System.out.println("3. Update Category");
+            System.out.println("4. My Category");
+        }
         int chooseMenu = Config.scanner().nextInt();
         switch (chooseMenu) {
             case 1:
-                new CategoryView().showFormCategoryList();
+               showFormCategoryList();
                 break;
             case 2:
-                new CategoryView().formCreateCategory();
+               formCreateCategory();
                 break;
             case 3:
-                new CategoryView().formUpdateCategory();
+                formUpdateCategory();
+                break;
+            case 4:
+                tableShowCategoryByUser();
                 break;
         }
     }
@@ -82,6 +99,12 @@ public class CategoryView {
                     break;
                 }
             }
+        }
+    }
+    public void tableShowCategoryByUser(){
+        List<Category> listCategoryByUser = categoryController.getListCategoryByUser();
+        for (int i = 0; i < listCategoryByUser.size(); i++) {
+            System.out.println(listCategoryByUser.get(i).getName());
         }
     }
 }

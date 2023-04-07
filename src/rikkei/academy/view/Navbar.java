@@ -2,6 +2,7 @@ package rikkei.academy.view;
 
 import rikkei.academy.config.Config;
 import rikkei.academy.controller.UserController;
+import rikkei.academy.model.Singleton;
 import rikkei.academy.model.User;
 
 import java.sql.SQLOutput;
@@ -14,10 +15,14 @@ public class Navbar {
         if(user!=null){
             System.out.println("WELCOME "+user.getName());
             System.out.println("1. GO TO PROFILE");
+            System.out.println("4. CATEGORY MANAGE");
             int chooseMenu = Config.scanner().nextInt();
             switch (chooseMenu){
                 case 1:
                     new ProfileView();
+                    break;
+                case 4:
+                    CategoryView.getCategoryViewInstance();
                     break;
             }
         }else {
@@ -27,13 +32,13 @@ public class Navbar {
             int chooseMenu = Config.scanner().nextInt();
             switch (chooseMenu){
                 case 1:
-                    new UserView().formRegister();
+                    UserView.getUserViewInstance().formRegister();
                     break;
                 case 2:
-                    new UserView().formLogin();
+                    UserView.getUserViewInstance().formLogin();
                     break;
                 case 3:
-                    new UserView().showListUser();
+                    UserView.getUserViewInstance().showListUser();
                     break;
             }
         }
@@ -42,6 +47,9 @@ public class Navbar {
 
     public static void main(String[] args) {
         new Navbar();
-
+//        Singleton singleton1 = new Singleton();
+//        Singleton singleton2 = new Singleton();
+//        Singleton singleton3 = Singleton.getInstance();
+//        Singleton singleton4 = Singleton.getInstance();
     }
 }

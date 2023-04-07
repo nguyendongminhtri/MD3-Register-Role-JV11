@@ -20,4 +20,7 @@ public class CategoryController {
     public Category detailCategory(int id){
       return categoryService.findById(id);
     }
+    public List<Category> getListCategoryByUser(){
+        return categoryService.findByUser();
+    }
 }
